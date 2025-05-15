@@ -1,0 +1,348 @@
+/* Box-sizing global para todos los elementos */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 100;
+	top: 0;
+	left: 0;
+	margin-top: 60px;
+    width: 100%;
+	height: 100%;
+	backdrop-filter: blur(8px);
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+}
+
+/* Contenido del popup */
+.popup-content {
+	position: relative;
+    margin: 5% auto;
+    padding-top: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 5px;
+    width: 100%;
+    max-width: 600px;
+	border-radius: 10px;
+	max-height: 90vh;
+	overflow: hidden;
+}
+
+/* Botón de cierre */
+.close {
+    color: #383838f0;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Estilos para la sección de formularios */
+.forms-section {
+	display: flex; /* Utiliza Flexbox para el posicionamiento */
+	flex-direction: column; /* Dispone los elementos en columna */
+	justify-content: center; /* Centra el contenido horizontalmente */
+	align-items: center; /* Centra el contenido verticalmente */
+}
+
+/* Estilos para el título de la sección */
+.section-title {
+	font-size: 32px;
+	letter-spacing: 1px;
+	color: #ffffff;
+}
+
+/* Contenedor de formularios */
+.forms {
+	display: flex; /* Utiliza Flexbox para el posicionamiento */
+	align-items: flex-start; /* Alinea los elementos en el borde superior */
+	margin-top: 30px; /* Margen en la parte superior */
+}
+
+/* Animación del envoltorio del formulario cuando está activo */
+.form-wrapper {
+	animation: hideLayer .5s ease-out forwards; /* Animación para ocultar el formulario */
+}
+
+/* Animación de estado activo para el envoltorio del formulario */
+.form-wrapper.is-active {
+	animation: showLayer .5s ease-in forwards; /* Animación para mostrar el formulario */
+}
+
+/* Keyframes para mostrar la capa */
+@keyframes showLayer {
+	50% {
+		z-index: 1; /* Cambio de z-index a mitad de camino */
+	}
+	100% {
+		z-index: 1; /* Asegura que el z-index permanezca alto */
+	}
+}
+
+/* Keyframes para ocultar la capa */
+@keyframes hideLayer {
+	0% {
+		z-index: 1; /* Z-index inicial */
+	}
+	49.999% {
+		z-index: 1; /* Asegura que el z-index permanezca alto antes de desaparecer */
+	}
+}
+
+/* Estilos para el botón de cambio */
+.switcher {
+	position: relative; /* Posición relativa para los elementos hijos en posición absoluta */
+	cursor: pointer; /* Cursor de tipo puntero */
+	display: block; /* Muestra como bloque */
+	margin-right: auto; /* Margen automático a la derecha */
+	margin-left: auto; /* Margen automático a la izquierda */
+	padding: 0; /* Sin relleno */
+	text-transform: uppercase;
+	font-family: inherit;
+	font-size: 16px;
+	letter-spacing: .5px;
+	color: #000000bd;
+	background-color: transparent;
+	border: none;
+	outline: none;
+	transform: translateX(0); /* Sin traslación inicial */
+	transition: all .5s ease-out; /* Transición suave */
+}
+
+/* Estilos para el botón de login */
+.form-wrapper.is-active .switcher-login {
+	color: #375F90;
+	background-color: #d7e7f1;
+	border-radius: 20px;
+	padding: 10px 20px;
+	transform: translateX(90px);
+}
+
+/* Estilos para el botón de signup */
+.form-wrapper.is-active .switcher-signup {
+	color: #375F90;
+	background-color: #d7e7f1;
+	border-radius: 20px;
+	padding: 10px 20px;
+	transform: translateX(-90px);
+}
+
+
+/* Animación de subrayado para el botón de login */
+.switcher-login .underline::before {
+	transform: translateX(101%); /* Traslación para el estado activo */
+}
+
+/* Animación de subrayado para el botón de signup */
+.switcher-signup .underline::before {
+	transform: translateX(-101%); /* Traslación para el estado activo */
+}
+
+/* Animación de subrayado para el formulario activo */
+.form-wrapper.is-active .underline::before {
+	transform: translateX(0); /* Traslación para el estado activo */
+}
+
+/* Estilos generales para los formularios */
+.form {
+	overflow: hidden; /* Oculta el contenido desbordado */
+	min-width: 260px; /* Ancho mínimo */
+	margin-top: 50px; /* Margen en la parte superior */
+	padding: 30px 25px; /* Relleno interno */
+  	border-radius: 5px; /* Bordes redondeados */
+	transform-origin: top; /* Origen de la transformación */
+}
+
+/* Animación para el formulario de login */
+.form-login {
+	animation: hideLogin .5s ease-out forwards; /* Animación para ocultar el formulario de login */
+}
+
+/* Animación activa para el formulario de login */
+.form-wrapper.is-active .form-login {
+	animation: showLogin .5s ease-in forwards; /* Animación para mostrar el formulario de login */
+}
+
+/* Keyframes para mostrar el formulario de login */
+@keyframes showLogin {
+	0% {
+		background: #fff; /* Fondo blanco */
+		transform: translate(40%, 10px); /* Traslación inicial */
+	}
+	50% {
+		transform: translate(0, 0); /* Traslación a mitad de camino */
+	}
+	100% {
+		background-color: #90AFD4; /* Color de fondo para el estado activo */
+		transform: translate(35%, -20px); /* Traslación final */
+	}
+}
+
+/* Keyframes para ocultar el formulario de login */
+@keyframes hideLogin {
+	0% {
+		background-color: #fff;
+		transform: translate(35%, -20px); /* Traslación inicial */
+	}
+	50% {
+		transform: translate(0, 0); /* Traslación a mitad de camino */
+	}
+	100% {
+		background: #d7e7f1;
+		transform: translate(40%, 10px); /* Traslación final */
+	}
+}
+
+/* Animación para el formulario de signup */
+.form-signup {
+	animation: hideSignup .5s ease-out forwards; /* Animación para ocultar el formulario de signup */
+}
+
+/* Animación activa para el formulario de signup */
+.form-wrapper.is-active .form-signup {
+	animation: showSignup .5s ease-in forwards; /* Animación para mostrar el formulario de signup */
+}
+
+/* Keyframes para mostrar el formulario de signup */
+@keyframes showSignup {
+	0% {
+		background: #fff;
+		transform: translate(-40%, 10px) scaleY(.8); /* Traslación y escala inicial */
+	}
+	50% {
+		transform: translate(0, 0) scaleY(.8); /* Traslación y escala a mitad de camino */
+	}
+	100% {
+		background-color: #90AFD4;
+		transform: translate(-35%, -20px) scaleY(1); /* Traslación y escala finales */
+	}
+}
+
+/* Keyframes para ocultar el formulario de signup */
+@keyframes hideSignup {
+	0% {
+		background-color: #fff;
+		transform: translate(-35%, -20px) scaleY(1); /* Traslación y escala iniciales */
+	}
+	50% {
+		transform: translate(0, 0) scaleY(.8); /* Traslación y escala a mitad de camino */
+	}
+	100% {
+		background: #d7e7f1;
+		transform: translate(-40%, 10px) scaleY(.8); /* Traslación y escala finales */
+	}
+}
+
+/* Estilos para fieldset en los formularios */
+.form fieldset {
+	position: flex; /* Utiliza Flexbox para el posicionamiento */
+	justify-content: space-around;
+	opacity: 0; /* Opacidad inicial */
+	margin: 0; /* Sin márgenes */
+	padding: 0; /* Sin relleno */
+	border: 0; /* Sin borde */
+	transition: all .5s ease-out; /* Transición suave para todos los cambios */
+}
+
+/* Posición para el fieldset en el formulario de login */
+.form-login fieldset {
+	transform: translateX(-50%); /* Traslación para el formulario de login */
+}
+
+/* Posición para el fieldset en el formulario de signup */
+.form-signup fieldset {
+	transform: translateX(50%); /* Traslación para el formulario de signup */
+}
+
+/* Estado activo para el fieldset del formulario */
+.form-wrapper.is-active fieldset {
+	opacity: 1; /* Opacidad completa para el estado activo */
+	transform: translateX(0); /* Sin traslación para el estado activo */
+	transition: opacity .6s ease-in, transform .35s ease-in; /* Transiciones para el estado activo */
+}
+
+/* Estilos para el legend del formulario (accesibilidad) */
+.form legend {
+	position: absolute; /* Posición absoluta para accesibilidad */
+	overflow: hidden; /* Oculta el desbordamiento */
+	width: 1px; /* Ancho de 1 píxel */
+	height: 1px; /* Alto de 1 píxel */
+	clip: rect(0 0 0 0); /* Recorte invisible */
+}
+
+/* Estilos para los bloques de entrada en los formularios */
+.input-block {
+	margin: 20px; /* Margen en la parte inferior */
+}
+
+/* Estilos para las etiquetas de los bloques de entrada */
+.input-block label {
+	font-size: 14px; /* Tamaño de fuente */
+	color: #ffffff; /* Color del texto (blanco) */
+}
+
+/* Estilos para los inputs */
+.input-block input {
+	display: block; /* Mostrar como bloque */
+	width: 100%;
+	margin-top: 8px; /* Margen superior */
+	padding-right: 15px; /* Relleno a la derecha */
+	padding-left: 15px;
+	font-size: 16px;
+	line-height: 40px;
+	color: #3b4465;
+  	background: #ffffff;
+  	border: 1px solid #cddbef;
+  	border-radius: 2px;
+}
+
+/* Estilos para el botón de submit */
+.form [type='submit'] {
+	opacity: 0; /* Opacidad inicial */
+	display: block; /* Mostrar como bloque */
+	min-width: 120px; /* Ancho mínimo */
+	margin: 30px auto 10px; /* Margen automático */
+	font-size: 18px;
+	line-height: 40px; /* Altura de línea */
+	border-radius: 25px; /* Bordes redondeados */
+	border: none; /* Sin borde */
+	transition: all .5s ease-out; /* Transición suave */
+}
+
+/* Estado activo para el botón de submit */
+.form-wrapper.is-active .form [type='submit'] {
+	opacity: 1; /* Opacidad completa para el estado activo */
+	transform: translateX(0); /* Sin traslación para el estado activo */
+	transition: all .6s ease-in; /* Transición para el estado activo */
+}
+
+/* Estilos para el botón de login */
+.btn-login {
+	color: #fbfdff;
+	background: #375F90;
+	box-shadow: inset 0 0 0 2px #375F90;
+	cursor: pointer;
+	transform: translateX(-30%); /* Traslación para el botón de login */
+}
+
+/* Estilos para el botón de signup */
+.btn-signup {
+	color: #fbfdff;
+	background: #375F90;
+	box-shadow: inset 0 0 0 2px #375F90;
+	cursor: pointer;
+	transform: translateX(30%); /* Traslación para el botón de signup */
+}

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load admin_urls %}
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Nine O'Clock</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.ico' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/authPopup.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}">
+</head>
+
+<body>
+  
+    <header>
+        <!-- Nav Bar -->
+        <div class="topnav">
+            <nav aria-label="Main Navigation">
+                <a href="/"><h1>Nine O'Clock</h1></a>
+                <form id="searchForm" method="get" action="{% url 'homepage' %}#articles">
+                    <label for="search" class="search-label">Search</label>
+                    <input type="text" id="search" name="q" placeholder="Search...">
+                    <button type="submit" class="button">Search</button>
+                </form>
+
+                <!-- Login / Register -->
+                <div class="login-register">
+                    {% if user.is_authenticated %}
+                        <p>Welcome, {{ user.username }}!</p>
+                        <form method="post" action="{% url 'homepage' %}">
+                            {% csrf_token %}
+                            <button id="logoutButton">Log out</button>
+                        </form>
+                    {% else %}
+                        <button id="openAuthPopup">Log in</button>
+                    {% endif %}
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="section" aria-labelledby="about-heading">
+        <div class="about">
+            <h2 id="about-heading">About</h2>
+            <img src="{% static 'images/about.jpg' %}" alt="Image related to watchmaking." class="about-img">
+            <p>
+                Nine O'Clock is a web platform dedicated to watchmaking enthusiasts. We offer curated articles and resources on everything related to the world of watches. From classic models to the most innovative, our goal is to centralize the knowledge of this fascinating universe.
+                <br><br>
+                In addition to articles, Nine O'Clock allows registered users to create their own personalized reading list to save the content they are interested in. With category filters, users will be able to easily find what they're looking for, whether it's about vintage watches, smartwatches, or collecting.
+                <br><br>
+                This project stems from my love for watchmaking and my passion for technology. My goal is to create a community of enthusiasts who share this hobby and provide them with a space where they can access all kinds of information. Find my <a href="https://www.linkedin.com/in/heriberto-garcia-02855a232/" target="_blank">LinkedIn</a>, my <a href="https://github.com/BetDC" target="_blank">GitHub</a>, and the <a href="https://github.com/BetDC/NineOClock" target="_blank">source code</a>.
+                <br><br>
+                This site was created by Heriberto García and is under development as part of a personal project.
+            </p>
+        </div>
+    </section>
+
+    <!-- List Section -->
+    {% if user.is_authenticated %}
+    <section id="liste" class="section" aria-labelledby="reading-list-heading">
+        <h2 id="reading-list-heading">Reading List</h2>
+        <ul id="reading-list" aria-live="polite">
+            {% if reading_list %}
+                {% for article_title in reading_list %}
+                    <li>
+                        <a href="{{ article.link }}" class="article-title">{{ article.title }}</a>
+                        <button class="remove-from-reading-list" data-article-title="{{ article.title }}" aria-label="Remove {{ article.title }} from reading list">Remove</button>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <li id="no-articles-message">You have no articles in your reading list.</li>
+            {% endif %}
+        </ul>
+    </section>
+    {% endif %}
+
+    <!-- Articles Section -->
+    <section id="articles" class="section" aria-labelledby="articles-heading">
+        <h2 id="articles-heading">News</h2>
+        <div class='topics'>
+            <div class='container'>
+                <div class='row' id='linkContainer'>
+                    <a href="/#articles" aria-label="All articles"><span>All</span></a>
+                    <a href="/?q=classic-watches#articles" aria-label="Articles about classic watches"><span>Classic Watches</span></a>
+                    <a href="/?q=smartwatches#articles" aria-label="Articles about smartwatches"><span>Smartwatches</span></a>
+                    <a href="/?q=collecting#articles" aria-label="Articles about watch collecting"><span>Collecting</span></a>
+                </div>
+            </div>
+        </div>
+        <ul class="article-list" aria-live="polite">
+            {% for article in articles %}
+                <li data-article-title="{{ article.title }}">
+                    <div class="article">
+                        <h3>{{ article.title }}</h3>
+                        <p>{{ article.summary|safe }}</p>
+                        <p><a href="{{ article.link }}" target="_blank">Read full article</a></p>
+                        {% if article.published %}
+                            <p><strong> Published on: </strong>{{ article.published }}</p>
+                        {% endif %}
+                        {% if article.source %}
+                            <p><strong> Source: </strong>{{ article.source }}</a></p>
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                            <button class="add-to-reading-list" aria-label="Add {{ article.title }} to reading list">Add to reading list</button>
+                        {% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <!-- Article Pagination -->
+        <div class="pagination" aria-label="Article pagination">
+            <span class="step-links">
+                {% if articles.has_previous %}
+                    <a href="?q={{ query }}&page=1#articles" class="button" aria-label="First page">&laquo; First</a>
+                    <a href="?q={{ query }}&page={{ articles.previous_page_number }}#articles" class="button" aria-label="Previous page">Previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ articles.number }} of {{ articles.paginator.num_pages }}.
+                </span>
+
+                {% if articles.has_next %}
+                    <a href="?q={{ query }}&page={{ articles.next_page_number }}#articles" class="button" aria-label="Next page">Next</a>
+                    <a href="?q={{ query }}&page={{ articles.paginator.num_pages }}#articles" class="button" aria-label="Last page">Last &raquo;</a>
+                {% endif %}
+
+                {% if not articles.has_next %}
+                    <span class="back-to-home">
+                        <a href="/#articles" class="button" aria-label="Go back to the first page">Go back</a>
+                    </span>
+                {% endif %}
+            </span>
+        </div>
+    </section>
+
+    <!-- Auth Popup -->
+    <section class="forms-section">
+        <div id="authPopup" class="popup" role="dialog" aria-labelledby="authPopupTitle" aria-describedby="authPopupDesc">
+            <div class="popup-content">
+                <span class="close" id="closeAuthPopup" aria-label="Close">&times;</span>
+                <div class="forms">
+                    <div class="form-wrapper is-active">
+                        <button type="button" class="switcher switcher-login" aria-controls="loginForm">
+                            Log in
+                            <span class="underline"></span>
+                        </button>
+                        <form class="form form-login" id="loginForm" action="{% url 'homepage' %}" method="POST">
+                            {% csrf_token %}
+                            <fieldset>
+                                <legend id="loginFormTitle">Please enter your username and password to log in.</legend>
+                                <div class="input-block">
+                                    <label for="login-username">Username</label>
+                                    <input id="login-username" type="text" name="username" required aria-labelledby="loginFormTitle">
+                                </div>
+                                <div class="input-block">
+                                    <label for="login-password">Password</label>
+                                    <input id="login-password" type="password" name="password" required aria-labelledby="loginFormTitle">
+                                </div>
+                            </fieldset>
+                            <button type="submit" class="btn-login">Log in</button>
+                        </form>
+                    </div>
+                    <div class="form-wrapper">
+                        <button type="button" class="switcher switcher-signup" aria-controls="signupForm">
+                            Sign up
+                            <span class="underline"></span>
+                        </button>
+                        <form class="form form-signup" id="signupForm" action="{% url 'homepage' %}" method="POST">
+                            {% csrf_token %}
+                            <fieldset>
+                                <legend id="signupFormTitle">Please fill out the fields below to sign up.</legend>
+                                <div class="input-block">
+                                    <label for="signup-username">Username</label>
+                                    <input id="signup-username" type="text" name="username" required aria-labelledby="signupFormTitle">
+                                </div>
+                                <div class="input-block">
+                                    <label for="signup-email">Email</label>
+                                    <input id="signup-email" type="email" name="email" required>
+                                </div>
+                                <div class="input-block">
+                                    <label for="signup-password">Password</label>
+                                    <input id="signup-password" type="password" name="password" required aria-labelledby="signupFormTitle">
+                                </div>
+                            </fieldset>
+                            <button type="submit" class="btn-signup">Sign up</button>
+                        </form>
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<footer>
+    <img src="{% static 'images/footer.jpg' %}" alt="Images related to luxury watches" class="footer-img">
+    <div class="credits">
+        <h4>Credits</h4>
+        <p>
+            The information presented on this site is aggregated from various external RSS sources.
+            I do not own or control the original content of the articles, and the copyrights belong to the respective authors.
+            Each article title and description contains a link to the original site where you can read the full article.
+            I am not responsible for the content, opinions, or information presented on the external sites.
+            If you are the owner of the content and have questions or concerns about its use on this site,
+            please contact me directly via <a href="betogzco@gmail.com">email</a>.
+        </p>
+    </div>
+</footer>
+
+<div id="move-to-top-button">
+    <img src="{% static 'images/arrow-up.png' %}" alt="Back to top">
+</div>
+
+<script src="{% static 'js/homepage.js' %}"></script>
+<script src="{% static 'js/authPopup.js' %}"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    var addToReadingListUrl = "{% url 'add_to_reading_list' %}";
+    var removeFromReadingListUrl = "{% url 'remove_from_reading_list' %}";
+    var csrfToken = "{{ csrf_token }}";
+</script>
+<script src="{% static 'js/readingList.js' %}"></script>
+
+</body>
+</html>

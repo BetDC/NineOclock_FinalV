@@ -1,0 +1,430 @@
+/* Estilos globales */
+* {
+    list-style: none;
+    scrollbar-width: auto; /* "auto" o "thin" (según el navegador) */
+    scrollbar-color: #2b4f75 #F5F5F5; /* Color de la barra de desplazamiento (pulgar y pista) */
+    scroll-behavior: smooth; /* Desplazamiento suave */
+}
+
+/* Estilos del cuerpo */
+body {
+    margin: 0; /* Elimina los márgenes por defecto */
+    font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif; /* Fuente por defecto */
+    background-color: #F7FCFF;
+    backdrop-filter: blur(3px);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='411' height='411' viewBox='0 0 800 800'%3E%3Cg fill='none' stroke='%23A1B0C8' stroke-width='1'%3E%3Cpath d='M769 229L1037 260.9M927 880L731 737 520 660 309 538 40 599 295 764 126.5 879.5 40 599-197 493 102 382-31 229 126.5 79.5-69-63'/%3E%3Cpath d='M-31 229L237 261 390 382 603 493 308.5 537.5 101.5 381.5M370 905L295 764'/%3E%3Cpath d='M520 660L578 842 731 737 840 599 603 493 520 660 295 764 309 538 390 382 539 269 769 229 577.5 41.5 370 105 295 -36 126.5 79.5 237 261 102 382 40 599 -69 737 127 880'/%3E%3Cpath d='M520-140L578.5 42.5 731-63M603 493L539 269 237 261 370 105M902 382L539 269M390 382L102 382'/%3E%3Cpath d='M-222 42L126.5 79.5 370 105 539 269 577.5 41.5 927 80 769 229 902 382 603 493 731 737M295-36L577.5 41.5M578 842L295 764M40-201L127 80M102 382L-261 269'/%3E%3C/g%3E%3Cg fill='%238FA1B6'%3E%3Ccircle cx='769' cy='229' r='5'/%3E%3Ccircle cx='539' cy='269' r='5'/%3E%3Ccircle cx='603' cy='493' r='5'/%3E%3Ccircle cx='731' cy='737' r='5'/%3E%3Ccircle cx='520' cy='660' r='5'/%3E%3Ccircle cx='309' cy='538' r='5'/%3E%3Ccircle cx='295' cy='764' r='5'/%3E%3Ccircle cx='40' cy='599' r='5'/%3E%3Ccircle cx='102' cy='382' r='5'/%3E%3Ccircle cx='127' cy='80' r='5'/%3E%3Ccircle cx='370' cy='105' r='5'/%3E%3Ccircle cx='578' cy='42' r='5'/%3E%3Ccircle cx='237' cy='261' r='5'/%3E%3Ccircle cx='390' cy='382' r='5'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Estilos del encabezado */
+header {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+    top: 0;
+    margin: 0;
+    box-shadow: 0 4px 6px #00000017;
+    width: 100%;
+    z-index: 1000;
+    position: sticky;
+}
+
+/* Estilos de la navegación */
+.topnav nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.topnav h1 {
+    font-size: 48px;
+    color: #375F90;
+    margin: 0;
+    padding-left: 1%;
+}
+
+.topnav a {
+    text-decoration: none;
+}
+
+/* Estilos del formulario de búsqueda */
+.search-label {
+    display: none;
+}
+
+.topnav form {
+    display: flex;
+    align-items: center;
+}
+
+.topnav input[type="text"] {
+    padding: 8px 12px;
+    border: 1px solid #cddbef;
+    border-radius: 4px;
+    margin-right: 8px;
+    font-size: 16px;
+    color: #3b4465;
+    background-color: #ffffff;
+}
+
+.topnav button[type="submit"] {
+    padding: 8px 16px;
+    background-color: #375F90;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.topnav button[type="submit"]:hover {
+    background-color: #2b4f75;
+}
+
+/* Estilos del botón de volver arriba */
+#move-to-top-button {
+    position: fixed;
+    right: 25px;
+    bottom: -50px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #436a9a;
+    cursor: pointer;
+    transition: bottom 0.25s ease;
+}
+
+#move-to-top-button:hover {
+    background-color: #2b4f75;
+}
+
+#move-to-top-button:active {
+    transform: scale(0.95);
+}
+
+#move-to-top-button img {
+    width: 25px;
+}
+
+/* Estilos de inicio de sesión/registro */
+.login-register {
+    display: flex;
+    align-items: center;
+}
+
+.login-register p {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+    margin-right: 16px;
+}
+
+.login-register button {
+    padding: 8px 16px;
+    background-color: #375F90;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-register button#logoutButton {
+    background-color: #dc3545;
+}
+
+.login-register button:hover {
+    background-color: #2b4f75;
+}
+
+/* Estilos de la sección */
+.section {
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 3px;
+    background-color: #f8f9fa;
+    color: #3b4465;
+    text-align: center;
+    box-shadow: 0 4px 6px #00000017;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1200px;
+    border-radius: 10px;
+    list-style: none;
+}
+
+/* Estilos de la sección Acerca de */
+.about {
+    align-items: center;
+    justify-content: center;
+}
+
+.about p {
+    text-align: justify;
+    margin-left: 60px;
+    margin-right: 60px;
+}
+
+.about-img {
+    width: 90%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.h2 {
+    font-size: 26px;
+    color: #375F90;
+    margin-bottom: 20px;
+}
+
+/* Estilos del menú de temas */
+.topics {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+    box-shadow: 0 4px 6px #00000017;
+    margin-bottom: 20px;
+}
+
+.topics .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.topics .row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.topics a {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #375F90;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.topics a:not(.selected):hover {
+    transition: background-color 0.3s ease, color 0.3s ease;
+    background-color: #375F90;
+    color: white;
+}
+
+.topics a.selected {
+    background-color: #375F90;
+    color: white;
+}
+
+/* Estilos de la lista de artículos */
+.articles-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+/* Estilos de artículos individuales */
+.article {
+    background-color: #ffffff;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px #00000017;
+    border-radius: 8px;
+    text-align: left;
+}
+
+.article h3 {
+    font-size: 18px;
+    color: #375F90;
+    margin-bottom: 10px;
+}
+
+.article p {
+    font-size: 14px;
+    color: #3b4465;
+    line-height: 1.6;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    text-align: justify;
+    /* max-width: 800px; */
+}
+
+.article p a {
+    color: #3873bb;
+    text-decoration: none;
+    text-align: justify;
+    transition: color 0.3s ease;
+}
+
+.article p a:hover {
+    color: #142b44;
+}
+
+.article p strong {
+    font-weight: bold;
+}
+
+.article form {
+    margin-top: 10px;
+}
+
+.article form button {
+    padding: 8px 16px;
+    background-color: #375F90;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.article form button:hover {
+    background-color: #2b4f75;
+}
+
+/* Estilos de los botones de la lista de lectura */
+.add-to-reading-list,
+.remove-from-reading-list {
+    padding: 8px 16px;
+    background-color: #375F90;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.add-to-reading-list:hover,
+.remove-from-reading-list:hover {
+    background-color: #2b4f75;
+}
+
+.add-to-reading-list a,
+.remove-from-reading-list a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Estilos de la sección de la lista de lectura */
+#reading-list-section {
+    margin-top: 20px; /* Añadir margen en la parte superior para el espaciado */
+}
+
+/* Estilos de los elementos de la lista de lectura */
+#reading-list li {
+    margin-bottom: 10px; /* Espaciado entre cada elemento de la lista */
+    display: flex; /* Uso de flexbox para alinear los elementos */
+    align-items: center; /* Alineación vertical de los elementos */
+    justify-content: space-between; /* Espaciado igual entre el título y el botón */
+}
+
+#reading-list li .article-title {
+    color: #3873bb;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+#reading-list li .article-title:hover {
+    color: #142b44;
+}
+
+/* Estilos de la paginación */
+.pagination {
+    display: flex;
+    justify-content: right;
+    align-items: right;
+    margin: 40px 0;
+}
+
+.step-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.button {
+    padding: 8px 16px;
+    background-color: #375F90;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.button:hover {
+    background-color: #2b4f75;
+}
+
+.button a {
+    color: white;
+    text-decoration: none;
+}
+
+.current {
+    font-size: 16px;
+    color: #3b4465;
+    margin: 0 10px;
+}
+
+.back-to-home {
+    margin-left: 20px;
+}
+
+.back-to-home button {
+    padding: 8px 16px;
+    background-color: #375F90;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.back-to-home button:hover {
+    background-color: #2b4f75;
+}
+
+.back-to-home button a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Estilos del pie de página */
+footer {
+    background-color: #f8f9fa;
+    box-shadow: 0 -4px 6px #00000017;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.credits {
+    padding: 10px;
+    padding-right: 80px;
+    max-width: 800px;
+}
+
+.credits h4 {
+    font-size: 20px;
+    color: #375F90;
+    padding: 10px;
+    text-align: center
